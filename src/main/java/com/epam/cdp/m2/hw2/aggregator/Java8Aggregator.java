@@ -21,9 +21,9 @@ public class Java8Aggregator implements Aggregator {
     @Override
     public List<Pair<String, Long>> getMostFrequentWords(List<String> words, long limit) {
         List<Pair<String, Long>> res = new ArrayList<>();
-        Map<String, Long> map = words.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-        for (String word: map.keySet()) {
-            res.add(new Pair(word, map.get(word)));
+        Map<String, Long> stringCountMap = words.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        for (String word: stringCountMap.keySet()) {
+            res.add(new Pair(word, stringCountMap.get(word)));
         }
         PairComparator<Pair<String, Long>> comparator = new PairComparator<>();
         res = res.stream().sorted(comparator).limit(limit).collect(Collectors.toList());
